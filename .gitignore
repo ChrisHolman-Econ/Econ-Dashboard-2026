@@ -1,1 +1,30 @@
+# Sensitive Data
+# Ignore environment variable files
+.env
+
+# Python Settings
+# Ignore Python cache files
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.python-version
+
+# Datafiles
+# Ignore data files
+data/raw/*
+data/processed/*
+.csv
+.xlsx
+.json
+.rds
+.parquet
+.sqlite
+
+# R Settings
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/staging/
 
