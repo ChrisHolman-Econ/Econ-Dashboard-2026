@@ -2,8 +2,13 @@ import pandas as pd
 import requests
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+# Find the project root (up one level from 'src' where this file lives)
+# This ensures it always finds the .env in Econ-Dashboard-2026/
+base_dir = Path(__file__).resolve().parent.parent
+load_dotenv(base_dir / ".env")
+
 BLS_KEY = os.getenv("BLS_KEY")
 
 def fetch_bls_data(series_ids, start_year, end_year):
