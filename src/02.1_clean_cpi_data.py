@@ -16,12 +16,17 @@ df = df.sort_values('date').reset_index(drop=True)
 # Formula: ((Current Month - Previous Month) / Previous Month) * 100
 df['mom_inflation_rate'] = df['value'].pct_change() * 100
 
+# Calculate Annualized Month-to-Month Inflation Rate
+# Formula: ((1 + monthly_rate/100)^12 - 1) * 100
+df['mom_annualized_rate'] = ((1 + df['mom_inflation_rate'] / 100) ** 12 - 1) * 100
+
 # Calculate 12-Month (Year-over-Year) Inflation Rate
 # Formula: ((Current Month - 12 Months Ago) / 12 Months Ago) * 100
 df['yoy_inflation_rate'] = df['value'].pct_change(periods=12) * 100
 
 # Round to 2 decimal places for readability
 df['mom_inflation_rate'] = df['mom_inflation_rate'].round(2)
+df['mom_annualized_rate'] = df['mom_annualized_rate'].round(2)
 df['yoy_inflation_rate'] = df['yoy_inflation_rate'].round(2)
 
 # Display results
