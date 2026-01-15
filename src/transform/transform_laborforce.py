@@ -36,5 +36,5 @@ print(df_wide.tail(10))
 # Save processed data
 output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "laborforce_cleaned.csv")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
-df_wide.set_index('date').to_csv(output_path, index=False)
+df_wide.set_index('date').to_csv(output_path)
 print(f"\nData saved to {output_path}")
