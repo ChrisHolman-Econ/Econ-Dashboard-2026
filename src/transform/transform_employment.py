@@ -23,5 +23,5 @@ print(df_clean.tail(10))
 # Save processed data
 output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "employment_cleaned.csv")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
-df_clean.to_csv(output_path, index=False)
+df_clean.set_index('date').to_csv(output_path)
 print(f"\nData saved to {output_path}")

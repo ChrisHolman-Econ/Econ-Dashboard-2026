@@ -29,6 +29,13 @@ df['mom_inflation_rate'] = df['mom_inflation_rate'].round(2)
 df['mom_annualized_rate'] = df['mom_annualized_rate'].round(2)
 df['yoy_inflation_rate'] = df['yoy_inflation_rate'].round(2)
 
+# Select relevant columns to keep
+df = df[['date', 
+         'value', 
+         'mom_inflation_rate', 
+         'mom_annualized_rate', 
+         'yoy_inflation_rate']]
+
 # Display results
 print(df.head(15))
 print("\n")
@@ -37,5 +44,5 @@ print(df.tail(10))
 # Save processed data
 output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "inflation_cleaned.csv")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
-df.to_csv(output_path, index=False)
+df.set_index('date').to_csv(output_path)
 print(f"\nData saved to {output_path}")
