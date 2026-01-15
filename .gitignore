@@ -1,30 +1,30 @@
-# Sensitive Data
-# Ignore environment variable files
+# --- SENSITIVE DATA (Priority 1) ---
 .env
 
-# Python Settings
-# Ignore Python cache files
+# --- DATA FILES (Priority 2) ---
+# This ignores the entire data folder and everything inside it
+data/
+# These catch stray files in the root
+*.csv
+*.xlsx
+*.json
+*.rds
+*.parquet
+*.sqlite
+
+# --- PYTHON SETTINGS ---
 __pycache__/
 *.pyc
 .venv/
 .ipynb_checkpoints/
 .python-version
 
-# Datafiles
-# Ignore data files
-data/raw/*
-data/processed/*
-.csv
-.xlsx
-.json
-.rds
-.parquet
-.sqlite
-
-# R Settings
+# --- R SETTINGS ---
 .Rhistory
 .RData
 .Rproj.user/
 renv/library/
 renv/staging/
 
+# --- OS SETTINGS ---
+.DS_Store
