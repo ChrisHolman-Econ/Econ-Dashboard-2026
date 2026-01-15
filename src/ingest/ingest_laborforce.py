@@ -20,5 +20,5 @@ df = fetch_bls_data(LABOR_IDS, START, END)
 
 # Save the result
 os.makedirs('data/raw', exist_ok=True)
-df.to_csv("data/raw/bls_laborforce_raw.csv", index=False)
+df.to_csv("data/raw/laborforce_raw.csv", index=False)
 print("✅ Done!")

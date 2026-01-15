@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # Load labor force data from saved file
-df = pd.read_csv("data/raw/bls_laborforce_raw.csv")
+df = pd.read_csv("data/raw/laborforce_raw.csv")
 
 # Convert date column to datetime
 df['date'] = pd.to_datetime(df['date'])
@@ -34,7 +34,7 @@ print("\n")
 print(df_wide.tail(10))
 
 # Save processed data
-output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "laborforce_metric.csv")
+output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "laborforce_cleaned.csv")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 df_wide.to_csv(output_path, index=False)
 print(f"\nData saved to {output_path}")

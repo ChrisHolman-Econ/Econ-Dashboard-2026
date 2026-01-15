@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # Load CPI data from saved file
-df = pd.read_csv("data/raw/bls_cpi_raw.csv")
+df = pd.read_csv("data/raw/inflation_raw.csv")
 
 # Convert date column to datetime
 df['date'] = pd.to_datetime(df['date'])
@@ -35,7 +35,7 @@ print("\n")
 print(df.tail(10))
 
 # Save processed data
-output_path = os.path.join(os.path.dirname(__file__), "..", "data", "processed", "cpi_with_inflation_rates.csv")
+output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "inflation_cleaned.csv")
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 df.to_csv(output_path, index=False)
 print(f"\nData saved to {output_path}")

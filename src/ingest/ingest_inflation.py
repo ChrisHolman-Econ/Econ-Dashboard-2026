@@ -20,5 +20,5 @@ df = fetch_bls_data(CPI_IDS, START, END)
 
 # Save the result
 os.makedirs('data/raw', exist_ok=True)
-df.to_csv("data/raw/bls_cpi_raw.csv", index=False)
+df.to_csv("data/raw/inflation_raw.csv", index=False)
 print("✅ Done!")
