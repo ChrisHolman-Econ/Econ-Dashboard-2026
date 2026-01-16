@@ -1,27 +1,34 @@
 # Transform CES employment data for analysis
 import pandas as pd
-import os
+from pathlib import Path
 
-# Load employment data from saved file
-df = pd.read_csv("data/raw/employment_raw.csv")
+# Path setup
+root = Path(__file__).resolve().parent.parent.parent
+input_file = root / "data" / "raw" / "employment_raw.csv"
+output_file = root / "data" / "processed" / "employment_cleaned.csv"
 
-# Convert date column to datetime
-df['date'] = pd.to_datetime(df['date'])
+def transform():
+    df = pd.read_csv(input_file)
+    
+    # 1. Create the date column
+    df['date'] = pd.to_datetime(df['year'].astype(str) + '-' + df['period'].str.replace('M', '') + '-01')
+    df = df.sort_values('date')
+    
+    # 2. Rename the raw value
+    df = df.rename(columns={'value': 'total_nonfarm_employment'})
+    
+    # 3. CALCULATE THE GAIN (The missing piece!)
+    # .diff() subtracts the previous row from the current row
+    df['monthly_gain'] = df['total_nonfarm_employment'].diff()
+    
+    # 4. Clean up
+    # Note: The very first row will be NaN because there's no previous month to subtract from.
+    # We can either keep it or drop it. Let's keep it for now.
+    final_df = df[['date', 'total_nonfarm_employment', 'monthly_gain']]
+    
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    final_df.to_csv(output_file, index=False)
+    print(f"Employment transformation complete. Calculated gains saved to {output_file}")
 
-# Sort by date
-df = df.sort_values('date').reset_index(drop=True)
-
-# Select only date and value columns (rename value to employment)
-df_clean = df[['date', 'value']].copy()
-df_clean.columns = ['date', 'total_nonfarm_employment']
-
-# Display results
-print(df_clean.head(15))
-print("\n")
-print(df_clean.tail(10))
-
-# Save processed data
-output_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed", "employment_cleaned.csv")
-os.makedirs(os.path.dirname(output_path), exist_ok=True)
-df_clean.set_index('date').to_csv(output_path)
-print(f"\nData saved to {output_path}")
+if __name__ == "__main__":
+    transform()
