@@ -44,6 +44,25 @@ fig = px.line(
     template="plotly_white"
 )
 
+if metric == 'employment':
+    st.subheader("Monthly Job Gains & Losses")
+    
+    # We create a bar chart for the Michigan Monthly change
+    fig_mo = px.bar(
+        df, 
+        x='date', 
+        y='MI_Employment_Monthly',
+        title="Michigan Monthly Net Job Change",
+        color='MI_Employment_Monthly', # Color bars based on value
+        color_continuous_scale='RdYlGn', # Red for losses, Green for gains
+        labels={'MI_Employment_Monthly': 'Jobs (Thousands)'}
+    )
+    
+    # Add a line at 0 to make losses obvious
+    fig_mo.add_hline(y=0, line_color="black")
+    
+    st.plotly_chart(fig_mo, use_container_width=True)
+    
 # Optional: Add a horizontal line at 0 for % change charts
 if view_mode == "Year-over-Year % Change":
     fig.add_hline(y=0, line_dash="dash", line_color="gray")
