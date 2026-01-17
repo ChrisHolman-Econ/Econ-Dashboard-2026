@@ -10,7 +10,7 @@ from bls_utils import fetch_bls_data  # Import your custom "package"
 import os
 
 # Define what you want
-CPI_IDS = ["CUUR0000SA0"]
+CPI_IDS = ["CUUR0000SA0", "CUURS23A0"]
 START = 2015
 END = 2026
 

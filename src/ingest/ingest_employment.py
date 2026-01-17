@@ -10,7 +10,7 @@ from bls_utils import fetch_bls_data  # Import your custom "package"
 import os
 
 # Define what you want
-CES_IDS = ["CES0000000001"]
+CES_IDS = ["CES0000000001","SMS26000000000000001"]
 START = 2015
 END = 2026
 

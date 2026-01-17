@@ -53,6 +53,17 @@ elif page == "Employment (CES)":
                     color='monthly_gain',
                     color_continuous_scale='RdBu')
     
+    fig_emp.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                dict(count=1, label="1y", step="year", stepmode="backward"),
+                dict(count=3, label="3y", step="year", stepmode="backward"),
+                dict(step="all")
+            ])
+        )
+    )
+
     st.plotly_chart(fig_emp, use_container_width=True)
     
     with st.expander("View Raw Data Table"):
@@ -61,22 +72,22 @@ elif page == "Employment (CES)":
 elif page == "Labor Force":
     st.header("Unemployment Rate")
 
-    # Load the labor force data
-    df_labor = pd.read_csv(processed_data_path / "laborforce_cleaned.csv")
-    df_labor['date'] = pd.to_datetime(df_labor['date'])
+# Load the labor force data
+df_labor = pd.read_csv(processed_data_path / "laborforce_cleaned.csv")
+df_labor['date'] = pd.to_datetime(df_labor['date'])
 
-    # Create a Line Chart for unemployment rate
-    fig_labor = px.line(df_labor, x='date', y='unemployment_rate',
-                        title="Unemployment Rate Trend",
-                        labels={'unemployment_rate': 'Unemployment Rate (%)', 'date': 'Month'},
-                        markers=True)
+# Create a Line Chart for unemployment rate
+fig_labor = px.line(df_labor, x='date', y='unemployment_rate',
+                    title="Unemployment Rate Trend",
+                    labels={'unemployment_rate': 'Unemployment Rate (%)', 'date': 'Month'},
+                    markers=True)
 
-    # Add horizontal line for reference (e.g., 5% unemployment)
-    fig_labor.add_hline(y=4.0, line_dash="dash", line_color="red",
-                        annotation_text="4% Reference Line", 
-                        annotation_position="top left")
+# Add horizontal line for reference (e.g., 5% unemployment)
+fig_labor.add_hline(y=4.0, line_dash="dash", line_color="red",
+                     annotation_text="4% Reference Line", 
+                     annotation_position="top left")
 
-    st.plotly_chart(fig_labor, use_container_width=True)
+st.plotly_chart(fig_labor, use_container_width=True)
                     
 # --- GLOBAL METRICS ---
 # Retreive most recent value from each dataframe
