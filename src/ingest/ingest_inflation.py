@@ -10,7 +10,7 @@ from bls_utils import fetch_bls_data  # Import your custom "package"
 import os
 
 # Define what you want
-CPI_IDS = ["CUUR0000SA0", "CUUR0200SA0"]
+CPI_IDS = ["CUUR0000SA0", "CUUR0200SA0"]  # All Urban Consumers, All Items & Food
 START = 2015
 END = 2026
 
