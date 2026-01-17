@@ -34,16 +34,17 @@ for metric, files in COMPARISON_MAP.items():
     # This aligns them perfectly by date
     merged = pd.merge(us_clean, mi_clean, on='date', how='outer').sort_values('date')
     
-    # 4. Save the "Wide" comparison file
-    merged.to_csv(f"data/processed/{metric}_comparison.csv", index=False)
-    print(f"Saved: {metric}_comparison.csv")
-
-# 1. Year-over-Year 
+    #  Year-over-Year 
     merged[f'US_{metric}_YoY'] = merged[f'US_{metric}'].pct_change(periods=12) * 100
     merged[f'MI_{metric}_YoY'] = merged[f'MI_{metric}'].pct_change(periods=12) * 100
 
-    # 2. Monthly Change (Specific for Employment)
+    # Monthly Change (Specific for Employment)
     if metric == 'employment':
         # This calculates the raw difference (e.g., +5.2 thousand jobs)
         merged['US_Employment_Monthly'] = merged['US_employment'].diff()
         merged['MI_Employment_Monthly'] = merged['MI_employment'].diff()
+
+    # 4. Save the "Wide" comparison file
+    merged.to_csv(f"data/processed/{metric}_comparison.csv", index=False)
+    print(f"Saved: {metric}_comparison.csv")
+
