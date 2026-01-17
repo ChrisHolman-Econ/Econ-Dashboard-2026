@@ -61,22 +61,22 @@ elif page == "Employment (CES)":
 elif page == "Labor Force":
     st.header("Unemployment Rate")
 
-# Load the labor force data
-df_labor = pd.read_csv(processed_data_path / "laborforce_cleaned.csv")
-df_labor['date'] = pd.to_datetime(df_labor['date'])
+    # Load the labor force data
+    df_labor = pd.read_csv(processed_data_path / "laborforce_cleaned.csv")
+    df_labor['date'] = pd.to_datetime(df_labor['date'])
 
-# Create a Line Chart for unemployment rate
-fig_labor = px.line(df_labor, x='date', y='unemployment_rate',
-                    title="Unemployment Rate Trend",
-                    labels={'unemployment_rate': 'Unemployment Rate (%)', 'date': 'Month'},
-                    markers=True)
+    # Create a Line Chart for unemployment rate
+    fig_labor = px.line(df_labor, x='date', y='unemployment_rate',
+                        title="Unemployment Rate Trend",
+                        labels={'unemployment_rate': 'Unemployment Rate (%)', 'date': 'Month'},
+                        markers=True)
 
-# Add horizontal line for reference (e.g., 5% unemployment)
-fig_labor.add_hline(y=5, line_dash="dash", line_color="red",
-                     annotation_text="5% Reference Line", 
-                     annotation_position="top left")
+    # Add horizontal line for reference (e.g., 5% unemployment)
+    fig_labor.add_hline(y=4.0, line_dash="dash", line_color="red",
+                        annotation_text="4% Reference Line", 
+                        annotation_position="top left")
 
-st.plotly_chart(fig_labor, use_container_width=True)
+    st.plotly_chart(fig_labor, use_container_width=True)
                     
 # --- GLOBAL METRICS ---
 # Retreive most recent value from each dataframe
@@ -102,8 +102,7 @@ elif page == "Employment (CES)":
     
     st.metric(
         label="Latest Monthly Job Gain/Loss", 
-        value=f"{current_val:,.0f}", 
-        delta="Strong Growth", 
+        value=f"{current_val:,.0f}",
         delta=f"{delta:,.0f} vs Last Month"
     )
               
