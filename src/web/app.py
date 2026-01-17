@@ -60,4 +60,73 @@ elif page == "Employment (CES)":
 
 elif page == "Labor Force":
     st.header("Unemployment Rate")
-    st.info("We will add the Unemployment line chart here next.")
+
+# Load the labor force data
+df_labor = pd.read_csv(processed_data_path / "laborforce_cleaned.csv")
+df_labor['date'] = pd.to_datetime(df_labor['date'])
+
+# Create a Line Chart for unemployment rate
+fig_labor = px.line(df_labor, x='date', y='unemployment_rate',
+                    title="Unemployment Rate Trend",
+                    labels={'unemployment_rate': 'Unemployment Rate (%)', 'date': 'Month'},
+                    markers=True)
+
+# Add horizontal line for reference (e.g., 5% unemployment)
+fig_labor.add_hline(y=5, line_dash="dash", line_color="red",
+                     annotation_text="5% Reference Line", 
+                     annotation_position="top left")
+
+st.plotly_chart(fig_labor, use_container_width=True)
+                    
+# --- GLOBAL METRICS ---
+# Retreive most recent value from each dataframe
+if page == "Inflation (CPI)":  
+    # Pull the last row's inflation value
+    df_inf = pd.read_csv(processed_data_path / "inflation_cleaned.csv")
+    current_val = df_inf['yoy_inflation_rate'].iloc[-1]                     
+    previous_val = df_inf['yoy_inflation_rate'].iloc[-2]
+    delta = current_val - previous_val
+    
+    st.metric(
+        label="Current YoY Inflation Rate (%)", 
+        value=f"{current_val:.1f}%", 
+        delta = f"{delta:.1f} vs Last Month",
+        delta_color="inverse"
+        )
+
+elif page == "Employment (CES)":
+    df_emp = pd.read_csv(processed_data_path / "employment_cleaned.csv")
+    current_val = df_emp['monthly_gain'].iloc[-1]
+    previous_val = df_emp['monthly_gain'].iloc[-2]
+    delta = current_val - previous_val
+    
+    st.metric(
+        label="Latest Monthly Job Gain/Loss", 
+        value=f"{current_val:,.0f}", 
+        delta="Strong Growth", 
+        delta=f"{delta:,.0f} vs Last Month"
+    )
+              
+
+elif page == "Labor Force":
+    df_laborforce = pd.read_csv(processed_data_path / "laborforce_cleaned.csv")
+    current_val = df_laborforce['unemployment_rate'].iloc[-1]
+    previous_val = df_laborforce['unemployment_rate'].iloc[-2]
+    delta = current_val - previous_val
+    
+    st.metric(
+        label="Current Unemployment Rate (%)", 
+        value=f"{current_val:.1f}%", 
+        delta=f"{delta}%",
+        delta_color="inverse"
+    )
+
+# --- SIDEBAR FOOTER ---
+st.sidebar.markdown("---")
+st.sidebar.write("### ABOUT")
+st.sidebar.info(
+    """
+    This dashboard is powered by the **BLS Public Data API**.
+    It automatically updates with the latest economic indicators.
+    """
+)
