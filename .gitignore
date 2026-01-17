@@ -3,9 +3,9 @@
 
 # --- DATA FILES (Priority 2) ---
 # This ignores the entire data folder and everything inside it
-data/
+data/raw/
 # These catch stray files in the root
-*.csv
+
 *.xlsx
 *.json
 *.rds
