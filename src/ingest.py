@@ -11,7 +11,7 @@ API_KEY = os.getenv("BLS_KEY")
 # Series IDs directory mapping
 SERIES_IDS = {
     'US_Inflation': 'CUUR0000SA0',
-    'MI_Inflation': 'CUURS23A0',
+    'MI_Inflation': 'CUUR0200SA0',
     'US_Unemployment': 'LNS14000000',
     'MI_Unemployment': 'LASST260000000000003',
     'US_Employment': 'CES0000000001',
