@@ -10,14 +10,11 @@ def run_step(script_path):
         print(f"❌ Error in {script_path}:\n{result.stderr}")
 
 if __name__ == "__main__":
-    # --- STEP 1: INGESTION ---
-    run_step("src/ingest/ingest_inflation.py")
-    run_step("src/ingest/ingest_employment.py")
-    run_step("src/ingest/ingest_laborforce.py")
+    print("--- Starting Economic Data Pipeline ---")
+
+    # Define paths relative to the root
+    run_step("src/ingest.py")
+    run_step("src/transform.py")
     
-    # --- STEP 2: TRANSFORMATION ---
-    run_step("src/transform/transform_inflation.py")
-    run_step("src/transform/transform_employment.py")
-    run_step("src/transform/transform_laborforce.py")
-    
-    print("\n🎉 ALL STEPS COMPLETE. Data is ready for the dashboard.")
+    print("\n🎉 DATA UPDATED!")
+    print("👉 To view the dashboard, run: streamlit run src/web/app.py")
