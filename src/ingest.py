@@ -16,7 +16,7 @@ def run_ingestion():
     os.makedirs("data/raw", exist_ok=True)
     
     # Call the utility function
-    data_bundles = bls_utils.fetch_bls_series(SERIES_IDS, 2016, 2026)
+    data_bundles = bls_utils.fetch_bls_series(SERIES_IDS, 2021, 2026)
     
     # Save each one using the friendly name
     for name, df in data_bundles.items():
