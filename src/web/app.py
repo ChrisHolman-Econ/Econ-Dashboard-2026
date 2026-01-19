@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
+import datetime as dt
 
 st.set_page_config(page_title="Michigan Economic Dashboard", layout="wide")
 
@@ -9,6 +11,17 @@ st.title("📈 Michigan vs. US Economic Comparison")
 # 1. SIDEBAR: Select the Metric
 with st.sidebar:
     st.header("Dashboard Settings")
+    
+    # Show last updated timestamp
+    target_file = 'data/processed/inflation_comparison.csv'
+    if os.path.exists(target_file):
+        mtime = os.path.getmtime(target_file)
+        last_update = dt.datetime.fromtimestamp(mtime).strftime('%Y-%m-%d %I:%M %p')
+        st.caption(f"Last Sync: {last_update} EST")
+    
+    st.divider()
+
+    # Select Economic Indicator
     metric = st.selectbox(
         "Select Economic Indicator",
         options=["inflation", "unemployment", "employment"],
@@ -63,7 +76,7 @@ if metric == 'employment':
     
     st.plotly_chart(fig_mo, use_container_width=True)
     
-# Optional: Add a horizontal line at 0 for % change charts
+# Add a horizontal line at 0 for % change charts
 if view_mode == "Year-over-Year % Change":
     fig.add_hline(y=0, line_dash="dash", line_color="gray")
 
