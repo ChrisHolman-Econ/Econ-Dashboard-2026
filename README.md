@@ -19,6 +19,7 @@ A professional data pipeline and interactive dashboard that tracks key economic 
 
 ## 🛠️ Project Structure
 - `src/ingest.py`: Scripts to fetch raw data from BLS.
+- `src/bls_utils.py`: Utility functions for BLS API interactions.
 - `src/transform.py`: Logic to clean and process data.
 - `data/`: Local storage for raw and processed CSVs (data/raw/ ignored by Git).
 - `run_pipeline.py`: The master script to update all data.
