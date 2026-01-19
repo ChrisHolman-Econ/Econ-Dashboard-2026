@@ -25,7 +25,7 @@ A professional data pipeline and interactive dashboard that tracks key economic 
 
 ## Data Sources
 - **Bureau of Labor Statistics (BLS) API:** [BLS Public Data API Documentation](https://www.bls.gov/developers/)
-    *Economic Indicators Tracked:**
+    **Economic Indicators Tracked:**
   - Consumer Price Index (CPI-U)
     - National CPI: (CUUR0000SA0)
     - Midwest CPI: (CUUR0200SA0)
@@ -52,7 +52,7 @@ To run the full ingestion and transformation pipeline, execute:
 python run_pipeline.py
 ```
 ### 4. Launch Dashboard
-To run launch the streamlit dashboard, execute:
+To launch the streamlit dashboard, execute:
 ```bash
 streamlit run src/web/app.py
 ```
